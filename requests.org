@@ -1,0 +1,45 @@
+# Local Variables:
+# eval: (verb-mode)
+# End:
+
+* Platform API                                                         :verb:
+Template http://localhost:8000/platform
+# Access-Token: Bearer Token can be used optionally
+
+** Health check                                                       :verb:
+GET /health
+
+** Authenticate
+POST /auth
+
+{
+  "email": "chamoda@xaventra.com",
+  "password": "11111111"
+}
+
+** Logout
+POST /logout
+
+** Self
+GET /self
+
+
+* Admin API                                                            :verb:
+Template http://localhost:8000/admin
+
+** Health check
+GET /health
+
+** Authenticate
+POST /auth
+
+{
+  "email": "chamoda@xaventra.com",
+  "password": "11111111"
+}
+
+** Logout
+POST /logout
+
+** Self
+GET /self

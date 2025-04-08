@@ -1,0 +1,30 @@
+name: Pre-commit checks
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.7.1
+      - name: Create virtual env
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+      - name: Install dependencies
+        run: |
+          source venv/bin/activate
+          poetry install --no-interaction
+      - name: Run pre-commit
+        run: |
+          source venv/bin/activate
+          poetry run pre-commit run --all-files
