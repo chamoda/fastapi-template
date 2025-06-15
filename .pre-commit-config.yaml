@@ -23,20 +23,20 @@ repos:
   - repo: local
     hooks:
       - id: checkpyproject
-        name: poetry check
+        name: uv sync --check
         language: system
         files: pyproject.toml
         pass_filenames: False
-        entry: poetry check
+        entry: uv sync --check
       - id: requirements
         name: export requirements
         language: system
-        files: poetry.lock
+        files: uv.lock
         pass_filenames: False
-        entry: poetry export -f requirements.txt --without-hashes -o requirements.txt
+        entry: uv export --no-hashes -o requirements.txt
       - id: requirements-test
         name: export requirements-test
         language: system
-        files: poetry.lock
+        files: uv.lock
         pass_filenames: False
-        entry: poetry export -f requirements.txt --without-hashes --dev -o requirements-test.txt
+        entry: uv export --extra dev --no-hashes -o requirements-test.txt

@@ -6,15 +6,14 @@
 
 - Python 3.10
 - Postgresql 14
-- [Poetry](https://python-poetry.org)
-- [Direnv](https://direnv.net)
+- [uv](https://docs.astral.sh/uv/)
 
 ### Getting started
 
 Following instructions are for Ubuntu 22.04 LTS.
 
-- Clone the project and create a virtual enviroment in the project directory with `python3 -m venv venv`. Activate virtual env with `source venv/bin/activate`
-- Run `poetry install` to install dependancies.
+- Clone the project
+- Run `uv sync` to create virtual environment and install dependencies.
 - Create postgresql database called `project_template`
 - Run `cp .env.example .env` and update `.env` with correct configs.
 - Run `alembic upgrade head` to run database migrations.
@@ -33,21 +32,21 @@ Following instructions are for Ubuntu 22.04 LTS.
 
 ### Run dev server
 
-`fastapi dev --host 0.0.0.0`
+`uv run fastapi dev --host 0.0.0.0`
 
 ### Run any custom commands
 
-`python manage.py --help`
+`uv run python manage.py --help`
 
 ### How to create and run migrations
 
 #### Create migration files
 
-`alembic revision --autogenerate`
+`uv run alembic revision --autogenerate`
 
 #### Update database with migration
 
-`alembic upgrade head`
+`uv run alembic upgrade head`
 
 ### API documentation
 
