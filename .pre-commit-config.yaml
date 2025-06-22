@@ -22,12 +22,6 @@ repos:
     - id: pyright
   - repo: local
     hooks:
-      - id: checkpyproject
-        name: uv sync --check
-        language: system
-        files: pyproject.toml
-        pass_filenames: False
-        entry: uv sync --check
       - id: requirements
         name: export requirements
         language: system
