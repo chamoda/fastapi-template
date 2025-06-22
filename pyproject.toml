@@ -1,36 +1,40 @@
-[tool.poetry]
+[project]
 name = "app"
 version = "0.1.0"
 description = ""
-authors = ["Chamoda Pandithage <chamoda@xaventra.com>"]
+authors = [
+    {name = "Chamoda Pandithage", email = "chamoda@xaventra.com"}
+]
 readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi[standard]>=0.115.6",
+    "uvicorn[standard]>=0.34.3",
+    "pydantic[email]>=2.11.7",
+    "pydantic-settings>=2.9.1",
+    "sqlalchemy[asyncio]>=2.0.41",
+    "alembic>=1.16.1",
+    "passlib[bcrypt]>=1.7.4",
+    "python-jose[cryptography]>=3.5.0",
+    "typer>=0.16.0",
+    "fastapi-pagination>=0.13.2",
+    "asyncpg>=0.30.0",
+    "pydantic-extra-types>=2.10.5",
+    "httpx>=0.28.1"
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-fastapi = {extras = ["standard"], version = "^0.115.6"}
-uvicorn = {extras = ["standard"], version = "^0.34.3"}
-pydantic = {extras = ["email"], version = "^2.11.7"}
-pydantic-settings = "^2.9.1"
-sqlalchemy = {extras = ["asyncio"], version = "^2.0.41"}
-alembic = "^1.16.1"
-passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-python-jose = {extras = ["cryptography"], version = "^3.5.0"}
-typer = "^0.16.0"
-fastapi-pagination = "^0.13.2"
-asyncpg = "^0.30.0"
-pydantic-extra-types = "^2.10.5"
-httpx = "^0.28.1"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^4.2.0"
-pyinfra = "^2.9.2"
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=4.2.0",
+    "pyinfra>=2.9.2"
+]
 
 [tool.pyright]
 include = ["app"]
 ignore = ["migrations/*"]
 venvPath = "."
-venv = "venv"
+venv = ".venv"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
