@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_ECHO: bool = False
     SECURE_COOKIE: bool = True
     SLOWDOWN_DELAY: int = 0
+    OBJ_URL: str = ""
 
 
 settings = Settings()
