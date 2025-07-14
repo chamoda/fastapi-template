@@ -130,7 +130,7 @@ async def create_email_verification(
     await send_mail(
         MessageSchema(
             recipients=[registration_email_verification.registration.email],
-            subject="AlmaStack: Email Verification Code",
+            subject="Email Verification Code",
             body=templates.get_template("verify_email.txt").render(
                 code=registration_email_verification.code,
                 first_name=registration_email_verification.registration.first_name,

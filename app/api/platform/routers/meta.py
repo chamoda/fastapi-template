@@ -112,7 +112,7 @@ async def forgot_password(
     await send_mail(
         MessageSchema(
             recipients=[user.email],
-            subject="AlmaStack: Password Reset Request",
+            subject="Password Reset Request",
             body=templates.get_template("reset_password.txt").render(
                 first_name=user.first_name, reset_url=reset_url
             ),

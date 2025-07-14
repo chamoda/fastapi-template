@@ -5,6 +5,3 @@ Here's your verification code to verify your email address.
 This code is only valid for 5 minutes.
 
 {{ code }}
-
-Cheers,
-AlmaStack
