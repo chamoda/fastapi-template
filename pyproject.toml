@@ -1,0 +1,64 @@
+[project]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Chamoda Pandithage", email = "chamoda@xaventra.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi[standard]>=0.115.6",
+    "uvicorn[standard]>=0.34.3",
+    "pydantic[email]>=2.11.7",
+    "pydantic-settings>=2.9.1",
+    "sqlalchemy[asyncio]>=2.0.41",
+    "alembic>=1.16.1",
+    "argon2-cffi>=23.1.0",
+    "python-jose[cryptography]>=3.5.0",
+    "typer>=0.16.0",
+    "fastapi-pagination>=0.13.2",
+    "asyncpg>=0.30.0",
+    "pydantic-extra-types>=2.10.5",
+    "httpx>=0.28.1",
+    "fastapi-mail>=1.5.0",
+    "slowapi>=0.1.9",
+    "redis>=6.2.0",
+    "psycopg2-binary>=2.9.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=4.2.0",
+    "pyinfra>=2.9.2",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.28.0",
+    "testcontainers>=4.0.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::RuntimeWarning:asyncpg.*",
+    "ignore::RuntimeWarning:sqlalchemy.*",
+    "ignore:coroutine.*was never awaited:RuntimeWarning"
+]
+
+[tool.pyright]
+include = ["app"]
+ignore = ["migrations/*"]
+venvPath = "."
+venv = ".venv"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "faker>=37.4.0",
+    "pyright>=1.1.403",
+    "pytest-cov>=6.2.1",
+    "testcontainers>=4.10.0",
+]
