@@ -10,7 +10,7 @@
 
 ### Getting started
 
-Following instructions are for Ubuntu 22.04 LTS.
+Following instructions are for Ubuntu 24.04 LTS.
 
 - Clone the project
 - Run `uv sync` to create virtual environment and install dependencies.
