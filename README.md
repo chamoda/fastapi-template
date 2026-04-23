@@ -4,8 +4,8 @@
 
 ### Requirements
 
-- Python 3.10
-- Postgresql 14
+- Python 3.12
+- Postgresql 16
 - [uv](https://docs.astral.sh/uv/)
 
 ### Getting started
@@ -26,7 +26,7 @@ Following instructions are for Ubuntu 22.04 LTS.
 
 ### Run dev server
 
-`uv run uvicorn app.main:app --reload`
+`uv run fastapi dev`
 
 ### Run any custom commands
 

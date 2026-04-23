@@ -44,7 +44,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, module="asyncpg.*
 @pytest.fixture(scope="session")
 def postgres_container():
     """Start PostgreSQL container for tests."""
-    with PostgresContainer("postgres:14") as postgres:
+    with PostgresContainer("postgres:16") as postgres:
         yield postgres
 
 
