@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from fastapi import APIRouter, Response, status, Request
 from fastapi_mail import MessageSchema, MessageType
+from pydantic import NameEmail
 from sqlalchemy import select, text
 
 from app.api.platform.schemas import (
@@ -111,7 +112,7 @@ async def forgot_password(
     reset_url = f"{settings.PLATFORM_URL}/reset-password?token={reset_token.token}"
     await send_mail(
         MessageSchema(
-            recipients=[user.email],
+            recipients=[NameEmail(name=user.first_name, email=user.email)],
             subject="Password Reset Request",
             body=templates.get_template("reset_password.txt").render(
                 first_name=user.first_name, reset_url=reset_url

@@ -11,6 +11,7 @@ from app.models import User
 from app.security import hash_password
 from app.notifications import send_mail
 from fastapi_mail import MessageSchema, MessageType
+from pydantic import NameEmail
 
 
 class AsyncTyper(Typer):
@@ -66,7 +67,7 @@ async def test_email(email: str):
     try:
         message = MessageSchema(
             subject="Test Email from API",
-            recipients=[email],
+            recipients=[NameEmail(name="", email=email)],
             body="This is a test email to verify that the email functionality is working correctly.\n\n"
             "If you received this email, the email system is configured properly.\n\n"
             "Thank you for using API!",

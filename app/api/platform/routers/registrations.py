@@ -7,7 +7,7 @@ from fastapi import (
     Request,
 )
 from fastapi_mail import MessageSchema, MessageType
-from pydantic import UUID4
+from pydantic import UUID4, NameEmail
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from app.database import DBSession
@@ -129,7 +129,12 @@ async def create_email_verification(
 
     await send_mail(
         MessageSchema(
-            recipients=[registration_email_verification.registration.email],
+            recipients=[
+                NameEmail(
+                    name=registration_email_verification.registration.first_name,
+                    email=registration_email_verification.registration.email,
+                )
+            ],
             subject="Email Verification Code",
             body=templates.get_template("verify_email.txt").render(
                 code=registration_email_verification.code,
