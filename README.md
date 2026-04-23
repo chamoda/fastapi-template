@@ -16,8 +16,8 @@ Following instructions are for Ubuntu 22.04 LTS.
 - Run `uv sync` to create virtual environment and install dependencies.
 - Create postgresql database called `project_template`
 - Run `cp .env.example .env` and update `.env` with correct configs.
-- Run `alembic upgrade head` to run database migrations.
-* Run `pre-commit install` to install pre-commit hooks. You can also `pre-commit run --all` to run and fix possbile issues at once for all files.
+- Run `uv run alembic upgrade head` to run database migrations.
+- Run `uv run pre-commit install` to install pre-commit hooks. You can also run `uv run pre-commit run --all` to run and fix possible issues at once for all files.
 
 ### Best practices
 
