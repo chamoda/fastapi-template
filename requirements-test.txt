@@ -26,7 +26,7 @@ bcrypt==5.0.0
     # via paramiko
 blinker==1.9.0
     # via fastapi-mail
-certifi==2026.4.22
+certifi==2026.5.20
     # via
     #   httpcore
     #   httpx
@@ -42,7 +42,7 @@ cfgv==3.5.0
     # via pre-commit
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.1
     # via
     #   pyinfra
     #   rich-toolkit
@@ -53,15 +53,18 @@ colorama==0.4.6 ; sys_platform == 'win32'
     #   click
     #   pytest
     #   uvicorn
-coverage==7.13.5
+coverage==7.14.0
     # via pytest-cov
-cryptography==46.0.7
+cryptography==47.0.0
     # via
     #   fastapi-mail
     #   paramiko
     #   python-jose
+    #   types-paramiko
 deprecated==1.3.1
     # via limits
+detect-installer==0.1.0
+    # via fastapi-cloud-cli
 distlib==0.4.0
     # via virtualenv
 distro==1.9.0
@@ -77,18 +80,18 @@ email-validator==2.3.0
     #   fastapi
     #   fastapi-mail
     #   pydantic
-faker==40.15.0
-fastapi==0.136.0
+faker==40.19.1
+fastapi==0.136.3
     # via
     #   app
     #   fastapi-pagination
 fastapi-cli==0.0.24
     # via fastapi
-fastapi-cloud-cli==0.17.0
+fastapi-cloud-cli==0.18.0
     # via fastapi-cli
-fastapi-mail==1.6.2
+fastapi-mail==1.6.4
     # via app
-fastapi-pagination==0.15.12
+fastapi-pagination==0.15.13
     # via app
 fastar==0.11.0
     # via
@@ -98,9 +101,9 @@ filelock==3.29.0
     # via
     #   python-discovery
     #   virtualenv
-gevent==26.4.0
+gevent==26.5.0
     # via pyinfra
-greenlet==3.4.0
+greenlet==3.5.1
     # via
     #   gevent
     #   sqlalchemy
@@ -117,9 +120,10 @@ httpx==0.28.1
     #   app
     #   fastapi
     #   fastapi-cloud-cli
+    #   fastapi-mail
 identify==2.6.19
     # via pre-commit
-idna==3.13
+idna==3.16
     # via
     #   anyio
     #   email-validator
@@ -127,6 +131,8 @@ idna==3.13
     #   requests
 iniconfig==2.3.0
     # via pytest
+invoke==3.0.3
+    # via paramiko
 jinja2==3.1.6
     # via
     #   fastapi
@@ -134,9 +140,9 @@ jinja2==3.1.6
     #   pyinfra
 limits==5.8.0
     # via slowapi
-mako==1.3.11
+mako==1.3.12
     # via alembic
-markdown-it-py==4.0.0
+markdown-it-py==4.2.0
     # via rich
 markupsafe==3.0.3
     # via
@@ -148,12 +154,12 @@ nodeenv==1.10.0
     # via
     #   pre-commit
     #   pyright
-packaging==26.1
+packaging==26.2
     # via
     #   limits
     #   pyinfra
     #   pytest
-paramiko==3.5.1
+paramiko==4.0.0
     # via pyinfra
 platformdirs==4.9.6
     # via
@@ -173,7 +179,7 @@ pyasn1==0.6.3
     #   rsa
 pycparser==3.0 ; implementation_name != 'PyPy'
     # via cffi
-pydantic==2.13.3
+pydantic==2.13.4
     # via
     #   app
     #   fastapi
@@ -183,13 +189,13 @@ pydantic==2.13.3
     #   pydantic-extra-types
     #   pydantic-settings
     #   pyinfra
-pydantic-core==2.46.3
+pydantic-core==2.46.4
     # via pydantic
 pydantic-extra-types==2.11.1
     # via
     #   app
     #   fastapi
-pydantic-settings==2.14.0
+pydantic-settings==2.14.1
     # via
     #   app
     #   fastapi
@@ -198,11 +204,11 @@ pygments==2.20.0
     # via
     #   pytest
     #   rich
-pyinfra==3.7
+pyinfra==3.8.0
     # via app
 pynacl==1.6.2
     # via paramiko
-pyright==1.1.408
+pyright==1.1.409
 pytest==9.0.3
     # via
     #   app
@@ -213,7 +219,7 @@ pytest-asyncio==1.3.0
 pytest-cov==7.1.0
 python-dateutil==2.9.0.post0
     # via pyinfra
-python-discovery==1.2.2
+python-discovery==1.3.1
     # via virtualenv
 python-dotenv==1.2.2
     # via
@@ -222,7 +228,7 @@ python-dotenv==1.2.2
     #   uvicorn
 python-jose==3.5.0
     # via app
-python-multipart==0.0.26
+python-multipart==0.0.29
     # via fastapi
 pywin32==311 ; sys_platform == 'win32'
     # via docker
@@ -232,15 +238,15 @@ pyyaml==6.0.3
     #   uvicorn
 redis==7.4.0
     # via app
-regex==2025.11.3
+regex==2026.5.9
     # via fastapi-mail
-requests==2.33.1
+requests==2.34.2
     # via docker
 rich==15.0.0
     # via
     #   rich-toolkit
     #   typer
-rich-toolkit==0.19.7
+rich-toolkit==0.19.10
     # via
     #   fastapi-cli
     #   fastapi-cloud-cli
@@ -248,7 +254,7 @@ rignore==0.7.6
     # via fastapi-cloud-cli
 rsa==4.9.1
     # via python-jose
-sentry-sdk==2.58.0
+sentry-sdk==2.60.0
     # via fastapi-cloud-cli
 shellingham==1.5.4
     # via typer
@@ -258,23 +264,25 @@ six==1.17.0
     #   python-dateutil
 slowapi==0.1.9
     # via app
-sqlalchemy==2.0.49
+sqlalchemy==2.0.50
     # via
     #   alembic
     #   app
-starlette==0.52.1
+starlette==1.1.0
     # via
     #   fastapi
     #   fastapi-mail
 testcontainers==4.14.2
     # via app
-typeguard==4.5.1
+typeguard==4.5.2
     # via pyinfra
-typer==0.24.2
+typer==0.25.1
     # via
     #   app
     #   fastapi-cli
     #   fastapi-cloud-cli
+types-paramiko==4.0.0.20260518
+    # via pyinfra
 typing-extensions==4.15.0
     # via
     #   alembic
@@ -299,15 +307,15 @@ typing-inspection==0.4.2
     #   fastapi
     #   pydantic
     #   pydantic-settings
-tzdata==2026.1 ; sys_platform == 'win32'
+tzdata==2026.2 ; sys_platform == 'win32'
     # via faker
-urllib3==2.6.3
+urllib3==2.7.0
     # via
     #   docker
     #   requests
     #   sentry-sdk
     #   testcontainers
-uvicorn==0.46.0
+uvicorn==0.48.0
     # via
     #   app
     #   fastapi
@@ -315,17 +323,17 @@ uvicorn==0.46.0
     #   fastapi-cloud-cli
 uvloop==0.22.1 ; platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32'
     # via uvicorn
-virtualenv==21.2.4
+virtualenv==21.3.3
     # via pre-commit
-watchfiles==1.1.1
+watchfiles==1.2.0
     # via uvicorn
 websockets==16.0
     # via uvicorn
-wrapt==2.1.2
+wrapt==2.2.1
     # via
     #   deprecated
     #   testcontainers
-zope-event==6.1
+zope-event==6.2
     # via gevent
-zope-interface==8.3
+zope-interface==8.4
     # via gevent
