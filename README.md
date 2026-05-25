@@ -1,3 +1,5 @@
+![fastapi-template banner](banner.png)
+
 # Project
 
 ## Development
