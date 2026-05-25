@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from fastapi import APIRouter, Response, status, Request
 from fastapi_mail import MessageSchema, MessageType
 from pydantic import NameEmail
@@ -59,7 +59,7 @@ async def auth(
     )
     user = result.scalars().first()
 
-    if user:
+    if user and user.password is not None:
         if verify_password(auth_request.password, user.password):
             access_token = generate_jwt_token({"sub": str(user.id)})
             response.set_cookie(
@@ -147,7 +147,7 @@ async def reset_password(
         )
 
     # Check if token is expired (1 hour)
-    if reset_token.created_at + timedelta(hours=1) < datetime.utcnow():
+    if reset_token.created_at + timedelta(hours=1) < datetime.now(UTC):
         raise ExpiredException(message="Reset token has expired")
 
     # Update user password
@@ -163,7 +163,7 @@ async def reset_password(
     user.password = hash_password(reset_request.password.get_secret_value())
 
     # Mark token as used
-    reset_token.used_at = datetime.utcnow()
+    reset_token.used_at = datetime.now(UTC)
 
     await session.commit()
 

@@ -1,9 +1,10 @@
 import re
-from typing import Annotated
+from datetime import UTC
+from typing import Annotated, Any
 from pydantic import (
+    AwareDatetime,
     BaseModel,
     ConfigDict,
-    NaiveDatetime,
     WrapSerializer,
     SecretStr,
     Field,
@@ -11,7 +12,11 @@ from pydantic import (
 )
 
 DateTime = Annotated[
-    NaiveDatetime, WrapSerializer(lambda v, nxt: f"{nxt(v)}Z", when_used="json")
+    AwareDatetime,
+    WrapSerializer(
+        lambda v, nxt: nxt(v.astimezone(UTC)).replace("+00:00", "Z"),
+        when_used="json",
+    ),
 ]
 
 
@@ -27,7 +32,7 @@ class ErrorDetail(Model):
     code: str
     message: str
     field: str | None = None
-    details: dict | None = None
+    details: dict[str, Any] | None = None
 
 
 class ErrorResponse(Model):

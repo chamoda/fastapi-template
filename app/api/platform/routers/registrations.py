@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 import hmac
 from fastapi import (
     APIRouter,
@@ -82,7 +82,7 @@ async def create_email_verification(
         select(RegistrationEmailVerification).where(
             RegistrationEmailVerification.registration_id == registration_id,
             RegistrationEmailVerification.created_at + timedelta(minutes=1)
-            >= datetime.utcnow(),
+            >= datetime.now(UTC),
         )
     )
     if recent_requests.scalars().first():
@@ -97,7 +97,7 @@ async def create_email_verification(
         .where(
             Registration.email == registration.email,
             RegistrationEmailVerification.created_at + timedelta(minutes=1)
-            >= datetime.utcnow(),
+            >= datetime.now(UTC),
         )
     )
     if recent_email_requests.scalars().first():
@@ -112,7 +112,7 @@ async def create_email_verification(
             RegistrationEmailVerification.registration_id == registration_id,
             RegistrationEmailVerification.verified.is_(False),
             RegistrationEmailVerification.created_at + timedelta(minutes=5)
-            >= datetime.utcnow(),
+            >= datetime.now(UTC),
         )
         .options(selectinload(RegistrationEmailVerification.registration))
     )
@@ -172,7 +172,7 @@ async def update_email_verification(
     if (
         registration_email_verification.last_attempt_at
         and registration_email_verification.last_attempt_at + timedelta(minutes=5)
-        <= datetime.utcnow()
+        <= datetime.now(UTC)
     ):
         registration_email_verification.attempt_count = 0
         await session.commit()
@@ -183,8 +183,8 @@ async def update_email_verification(
             cooldown_end = registration_email_verification.last_attempt_at + timedelta(
                 minutes=5
             )
-            if cooldown_end > datetime.utcnow():
-                cooldown_remaining = cooldown_end - datetime.utcnow()
+            if cooldown_end > datetime.now(UTC):
+                cooldown_remaining = cooldown_end - datetime.now(UTC)
 
         message = "Maximum verification attempts exceeded."
         if cooldown_remaining:
@@ -195,9 +195,8 @@ async def update_email_verification(
 
         raise RateLimitException(message=message)
 
-    if (
-        registration_email_verification.created_at + timedelta(minutes=5)
-        < datetime.utcnow()
+    if registration_email_verification.created_at + timedelta(minutes=5) < datetime.now(
+        UTC
     ):
         raise ExpiredException(message="Verification code has expired")
 
@@ -206,12 +205,12 @@ async def update_email_verification(
         registration_email_verification.code, verification_request.code
     ):
         registration_email_verification.attempt_count += 1
-        registration_email_verification.last_attempt_at = datetime.utcnow()
+        registration_email_verification.last_attempt_at = datetime.now(UTC)
         await session.commit()
         raise ValidationException(message="Invalid verification code", field="code")
 
     registration_email_verification.verified = True
-    registration_email_verification.verified_at = datetime.utcnow()
+    registration_email_verification.verified_at = datetime.now(UTC)
     await session.commit()
 
     user = User()

@@ -40,6 +40,8 @@ include = ["app"]
 ignore = ["migrations/*"]
 venvPath = "."
 venv = ".venv"
+typeCheckingMode = "standard"
+pythonVersion = "3.12"
 
 [build-system]
 requires = ["hatchling"]
