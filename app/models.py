@@ -33,9 +33,9 @@ class Registration(Base):
     email: Mapped[str] = mapped_column(String(254), nullable=False)
     password: Mapped[str] = mapped_column(String(128), nullable=True)
 
-    registration_email_verifications: Mapped[
-        list[RegistrationEmailVerification]
-    ] = relationship(back_populates="registration")
+    registration_email_verifications: Mapped[list[RegistrationEmailVerification]] = (
+        relationship(back_populates="registration")
+    )
 
 
 class RegistrationEmailVerification(Base):

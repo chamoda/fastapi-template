@@ -60,9 +60,11 @@ Password = Annotated[
     SecretStr,
     Field(min_length=8, max_length=128),
     field_validator("password", mode="before")(
-        lambda v: validate_password_strength(
-            v.get_secret_value() if isinstance(v, SecretStr) else v
+        lambda v: (
+            validate_password_strength(
+                v.get_secret_value() if isinstance(v, SecretStr) else v
+            )
+            and v
         )
-        and v
     ),
 ]
