@@ -21,6 +21,7 @@ A SaaS-shaped Python starter kit built on FastAPI. Opinionated defaults so you c
 
 - Python 3.12
 - Postgres 16
+- Redis
 - [uv](https://docs.astral.sh/uv/)
 
 ## Quick start
