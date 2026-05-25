@@ -1,5 +1,6 @@
 from typing import Annotated
 
+from sqlalchemy import event
 from sqlalchemy.ext.asyncio import (
     AsyncAttrs,
     async_sessionmaker,
@@ -7,7 +8,7 @@ from sqlalchemy.ext.asyncio import (
     AsyncSession,
 )
 from app.config import settings
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Mapper
 from fastapi import Depends
 
 async_engine = create_async_engine(
@@ -23,6 +24,15 @@ AsyncSessionLocal = async_sessionmaker(
 
 class Base(AsyncAttrs, DeclarativeBase):
     """subclasses will be converted to dataclasses"""
+
+
+@event.listens_for(Mapper, "mapper_configured")
+def _default_lazy_raise_on_sql(mapper, _):  # pyright: ignore[reportUnusedFunction]
+    # Surface accidental lazy loads as a clear error instead of MissingGreenlet
+    # in async contexts. Use selectin/joined eager loading or `awaitable_attrs`.
+    for rel in mapper.relationships:
+        if rel.lazy == "select":
+            rel.lazy = "raise_on_sql"
 
 
 async def get_db():
