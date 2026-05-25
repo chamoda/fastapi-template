@@ -1,49 +1,69 @@
 ![fastapi-template banner](banner.png)
 
-# Project
+# fastapi-template
 
-## Development
+A SaaS-shaped Python starter kit built on FastAPI. Opinionated defaults so you can skip the wiring and start building.
 
-### Requirements
+## What's in the box
+
+- **FastAPI** with a sub-app mount pattern (`/platform`) and per-app OpenAPI docs
+- **Async-first** request path — SQLAlchemy 2.x async, `asyncpg`, `httpx`
+- **Postgres 16** with **Alembic** migrations (autogenerate-friendly)
+- **Auth** — `argon2-cffi` password hashing, JWT via `python-jose`, secure cookies
+- **Rate limiting** with `slowapi` backed by Redis
+- **Email** via `fastapi-mail` with Jinja templates
+- **Pagination** via `fastapi-pagination`
+- **Custom CLI** — `manage.py` powered by Typer
+- **Tests** — `pytest`, `pytest-asyncio`, real Postgres in CI via `testcontainers`
+- **Tooling** — `uv` for env & deps, `ruff` + `pyright` + `pre-commit`, GitHub Actions for CI
+
+## Requirements
 
 - Python 3.12
-- Postgresql 16
+- Postgres 16
 - [uv](https://docs.astral.sh/uv/)
 
-### Getting started
+## Quick start
 
-Following instructions are for Ubuntu 24.04 LTS.
+Instructions assume Ubuntu 24.04.
 
-- Clone the project
-- Run `uv sync` to create virtual environment and install dependencies.
-- Create postgresql database called `project_template`
-- Run `cp .env.example .env` and update `.env` with correct configs.
-- Run `uv run alembic upgrade head` to run database migrations.
-- Run `uv run pre-commit install` to install pre-commit hooks. You can also run `uv run pre-commit run --all` to run and fix possible issues at once for all files.
+```bash
+git clone <repo-url> && cd fastapi-template
+uv sync                                  # create venv + install deps (incl. dev group)
+cp .env.example .env                     # then edit values
+createdb fastapi_template                # or use psql / pgAdmin
+uv run alembic upgrade head              # apply migrations
+uv run pre-commit install                # set up git hooks
+uv run fastapi dev                       # http://localhost:8000
+```
 
-### Best practices
+Platform API docs: <http://localhost:8000/platform/docs>
 
-- Always use `async` funtions in router files.
-- All functions that handle any kind of IO from functions like (network requests to external serverices, disk reads/write) need to be `async` functions.
+## Common workflows
 
-### Run dev server
+### Run the dev server
+```bash
+uv run fastapi dev
+```
 
-`uv run fastapi dev`
+### Run tests
+```bash
+uv run pytest
+```
+Tests spin up Postgres in a container via `testcontainers` — no manual DB setup needed.
 
-### Run any custom commands
+### Create a migration
+```bash
+uv run alembic revision --autogenerate -m "describe change"
+uv run alembic upgrade head
+```
 
-`uv run python manage.py --help`
+### Run a custom management command
+```bash
+uv run python manage.py --help
+```
 
-### How to create and run migrations
-
-#### Create migration files
-
-`uv run alembic revision --autogenerate`
-
-#### Update database with migration
-
-`uv run alembic upgrade head`
-
-### API documentation
-
-API is documeneted in swagger endpoints accesible with `docs` url endpoint. For example http://localhost:8000/mobile/docs
+### Lint & type-check
+```bash
+uv run pre-commit run --all-files
+```
