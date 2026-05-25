@@ -27,16 +27,6 @@ dependencies = [
     "psycopg2-binary>=2.9.12",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pre-commit>=4.6.0",
-    "pyinfra>=3.7",
-    "pytest>=9.0.3",
-    "pytest-asyncio>=1.3.0",
-    "httpx>=0.28.1",
-    "testcontainers>=4.14.2",
-]
-
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 filterwarnings = [
@@ -59,7 +49,10 @@ build-backend = "hatchling.build"
 dev = [
     "faker>=40.15.0",
     "pre-commit>=4.6.0",
+    "pyinfra>=3.7",
     "pyright>=1.1.408",
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.3.0",
     "pytest-cov>=7.1.0",
     "testcontainers>=4.14.2",
 ]

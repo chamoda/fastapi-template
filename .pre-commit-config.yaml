@@ -27,10 +27,10 @@ repos:
         language: system
         files: uv.lock
         pass_filenames: False
-        entry: uv export --no-hashes -o requirements.txt
+        entry: uv export --no-dev --no-hashes -o requirements.txt
       - id: requirements-test
         name: export requirements-test
         language: system
         files: uv.lock
         pass_filenames: False
-        entry: uv export --extra dev --no-hashes -o requirements-test.txt
+        entry: uv export --no-hashes -o requirements-test.txt
