@@ -1,7 +1,8 @@
 import pytest
 from faker import Faker
-from app.security import hash_password, generate_jwt_token
+
 from app.models import User
+from app.security import generate_jwt_token, hash_password
 
 fake = Faker()
 

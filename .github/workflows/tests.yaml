@@ -31,7 +31,6 @@ jobs:
           # Required environment variables for settings validation
           SECRET_KEY: test-secret-key-for-ci-only-not-production
           SQLALCHEMY_DATABASE_URI: postgresql+asyncpg://test:test@localhost:5432/test_db
-          REDIS_URL: redis://localhost:6379/0
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

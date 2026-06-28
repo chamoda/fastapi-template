@@ -1,10 +1,12 @@
-import pytest
-import warnings
 import asyncio
 import logging
-from httpx import AsyncClient, ASGITransport
+import warnings
+
+import pytest
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from testcontainers.postgres import PostgresContainer
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
 from app.database import Base, get_db
 
 # Suppress SQLAlchemy pool connection errors during test cleanup
@@ -46,38 +48,6 @@ def postgres_container():
     """Start PostgreSQL container for tests."""
     with PostgresContainer("postgres:16") as postgres:
         yield postgres
-
-
-@pytest.fixture(autouse=True)
-def disable_rate_limiting():
-    """Disable rate limiting for tests."""
-    from app.limiter import limiter
-
-    # Store original limit method
-    original_limit = limiter.limit
-
-    # Mock the limiter to return a no-op decorator
-    def mock_limit(*args, **kwargs):
-        def decorator(func):
-            return func
-
-        return decorator
-
-    limiter.limit = mock_limit
-
-    yield
-
-    # Restore original limiter
-    limiter.limit = original_limit
-
-
-@pytest.fixture(autouse=True)
-def mock_email_service():
-    """Mock email service to prevent actual email sending in tests."""
-    from unittest.mock import AsyncMock, patch
-
-    with patch("app.notifications.send_mail", new_callable=AsyncMock) as mock_send:
-        yield mock_send
 
 
 @pytest.fixture

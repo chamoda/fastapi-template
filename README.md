@@ -9,9 +9,7 @@ A SaaS-shaped Python starter kit built on FastAPI. Opinionated defaults so you c
 - **FastAPI** with a sub-app mount pattern (`/platform`) and per-app OpenAPI docs
 - **Async-first** request path — SQLAlchemy 2.x async, `asyncpg`, `httpx`
 - **Postgres 16** with **Alembic** migrations (autogenerate-friendly)
-- **Auth** — `argon2-cffi` password hashing, JWT via `python-jose`, secure cookies
-- **Rate limiting** with `slowapi` backed by Redis
-- **Email** via `fastapi-mail` with Jinja templates
+- **Auth** — `argon2-cffi` password hashing, JWT via `PyJWT`, secure cookies. Endpoints: `POST /auth` (login), `POST /logout`, `GET /users/me`
 - **Pagination** via `fastapi-pagination`
 - **Custom CLI** — `manage.py` powered by Typer
 - **Tests** — `pytest`, `pytest-asyncio`, real Postgres in CI via `testcontainers`
@@ -21,7 +19,6 @@ A SaaS-shaped Python starter kit built on FastAPI. Opinionated defaults so you c
 
 - Python 3.12
 - Postgres 16
-- Redis
 - [uv](https://docs.astral.sh/uv/)
 
 ## Quick start

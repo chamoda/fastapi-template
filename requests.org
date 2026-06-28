@@ -11,29 +11,6 @@ GET /health
 # Returns: 200 OK with {"status": "healthy"} when healthy
 # Returns: 503 Service Unavailable with {"status": "unhealthy"} when unhealthy
 
-** Registration
-POST /registrations
-# Returns: 201 Created with registration ID
-
-{
-  "first_name": "Chamoda",
-  "last_name": "Pandithage",
-  "email": "chamoda+10@xaventra.com",
-  "password": "OhIZ$I3v$bhA^8DZ"
-}
-
-** Create email verification (send email)
-POST /registrations/be5559a8-6788-41b5-9c2d-1942a9372bfa/email-verifications
-# Returns: 200 OK with {"message": "Email verification code sent successfully"}
-
-** Update email verification (verify code)
-PUT /registrations/be5559a8-6788-41b5-9c2d-1942a9372bfa/email-verifications/current
-# Returns: 200 OK with access token
-
-{
-  "code": "BT8HZQGG"
-}
-
 ** Authenticate
 POST /auth
 # Returns: 200 OK with access token
@@ -46,25 +23,6 @@ POST /auth
 ** Logout
 POST /logout
 # Returns: 200 OK with {"message": "Successfully logged out"}
-
-** Forgot Password
-POST /auth/forgot-password
-# Returns: 200 OK with {"message": "If an account with this email exists, a reset link has been sent"}
-# Rate limited: 3/minute
-
-{
-  "email": "chamoda+10@xaventra.com"
-}
-
-** Reset Password
-POST /auth/reset-password
-# Returns: 200 OK with {"message": "Password has been reset successfully"}
-# Returns: 400 Bad Request if token is invalid or expired
-
-{
-  "token": "3091e578672ef66169cf28ea4a20eae93329d549e9a9e5914cb82a88e08a3520",
-  "password": "NewP@ssw0rd123"
-}
 
 ** Get current user
 GET /users/me

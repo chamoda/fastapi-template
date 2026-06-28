@@ -3,7 +3,7 @@
 run:
 	uv run fastapi dev
 
-revision:
+migrate:
 	uv run alembic revision --autogenerate
 
 upgrade:

@@ -1,15 +1,16 @@
 from typing import Annotated
 
+from fastapi import Depends
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import (
     AsyncAttrs,
+    AsyncSession,
     async_sessionmaker,
     create_async_engine,
-    AsyncSession,
 )
-from app.config import settings
 from sqlalchemy.orm import DeclarativeBase, Mapper
-from fastapi import Depends
+
+from app.config import settings
 
 async_engine = create_async_engine(
     settings.SQLALCHEMY_DATABASE_URI,

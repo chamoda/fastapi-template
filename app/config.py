@@ -1,5 +1,6 @@
 from typing import Optional
-from pydantic import EmailStr, SecretStr, field_validator
+
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,28 +16,11 @@ class Settings(BaseSettings):
     SQLALCHEMY_ECHO: bool = False
     SECURE_COOKIE: bool = True
 
-    MAIL_USERNAME: str = ""
-    MAIL_PASSWORD: SecretStr = SecretStr("")
-    MAIL_PORT: int = 25
-    MAIL_SERVER: str = "localhost"
-    MAIL_STARTTLS: bool = False
-    MAIL_SSL_TLS: bool = False
-    MAIL_FROM: EmailStr = "test@example.com"
-    MAIL_FROM_NAME: Optional[str] = None
-    MAIL_USE_CREDENTIALS: bool = True
-    MAIL_VALIDATE_CERTS: bool = True
-
     CORS_ORIGINS: str = "http://localhost:3000"
 
     # JWT Token settings
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
     JWT_ALGORITHM: str = "HS256"
-
-    # Redis settings for rate limiting
-    REDIS_URL: str = "redis://localhost:6379/0"
-
-    # Platform URL for email links
-    PLATFORM_URL: str = "http://localhost:3000"
 
     # Cloudflare API token for SSL certificates
     CLOUDFLARE_API_TOKEN: Optional[str] = None

@@ -1,8 +1,9 @@
-from fastapi import HTTPException, status
-from fastapi.responses import JSONResponse
 from typing import Any, Dict, Optional
 
-from app.schemas import ErrorResponse, ErrorDetail
+from fastapi import HTTPException, status
+from fastapi.responses import JSONResponse
+
+from app.schemas import ErrorDetail, ErrorResponse
 
 
 class APIException(HTTPException):
@@ -32,16 +33,6 @@ class APIException(HTTPException):
         )
 
 
-class DuplicateResourceException(APIException):
-    def __init__(self, message: str, field: Optional[str] = None):
-        super().__init__(
-            status_code=status.HTTP_409_CONFLICT,
-            code="DUPLICATE_RESOURCE",
-            message=message,
-            field=field,
-        )
-
-
 class ResourceNotFoundException(APIException):
     def __init__(self, message: str):
         super().__init__(
@@ -58,20 +49,4 @@ class ValidationException(APIException):
             code="VALIDATION_ERROR",
             message=message,
             field=field,
-        )
-
-
-class RateLimitException(APIException):
-    def __init__(self, message: str):
-        super().__init__(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            code="RATE_LIMIT_EXCEEDED",
-            message=message,
-        )
-
-
-class ExpiredException(APIException):
-    def __init__(self, message: str):
-        super().__init__(
-            status_code=status.HTTP_410_GONE, code="RESOURCE_EXPIRED", message=message
         )

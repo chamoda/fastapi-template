@@ -1,15 +1,15 @@
 from typing import Annotated
+
+import jwt
 from fastapi import Depends, status
 from fastapi.security import APIKeyCookie, APIKeyHeader
-from jose import jwt, JWTError
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.config import settings
 from app.database import DBSession
-from app.models import User
 from app.exceptions import APIException, ResourceNotFoundException
-
+from app.models import User
 
 http_credentials_exception = APIException(
     status_code=status.HTTP_401_UNAUTHORIZED,
@@ -46,7 +46,7 @@ def decode_access_token(access_token: str) -> str:
                 message="Token payload missing required 'sub' field",
             )
         return sub
-    except JWTError as e:
+    except jwt.PyJWTError as e:
         raise APIException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             code="INVALID_TOKEN",

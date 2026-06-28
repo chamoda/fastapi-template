@@ -2,16 +2,13 @@
 
 import asyncio
 import inspect
+from functools import partial, wraps
 
-from functools import wraps, partial
 from typer import Typer
 
 from app.database import AsyncSessionLocal
 from app.models import User
 from app.security import hash_password
-from app.notifications import send_mail
-from fastapi_mail import MessageSchema, MessageType
-from pydantic import NameEmail
 
 
 class AsyncTyper(Typer):
@@ -47,37 +44,17 @@ async def create_user(
     last_name: str,
     email: str,
     password: str,
-    is_admin: bool,
 ):
     user = User(
         first_name=first_name,
         last_name=last_name,
         email=email,
         password=hash_password(password),
-        is_admin=is_admin,
+        is_active=True,
     )
     session.add(user)
     await session.commit()
     print("User created: ", user.id)
-
-
-@cli.command()
-async def test_email(email: str):
-    """Send a test email to verify email functionality."""
-    try:
-        message = MessageSchema(
-            subject="Test Email from API",
-            recipients=[NameEmail(name="", email=email)],
-            body="This is a test email to verify that the email functionality is working correctly.\n\n"
-            "If you received this email, the email system is configured properly.\n\n"
-            "Thank you for using API!",
-            subtype=MessageType.plain,
-        )
-
-        await send_mail(message)
-        print(f"✅ Test email sent successfully to {email}")
-    except Exception as e:
-        print(f"❌ Error sending test email: {e}")
 
 
 if __name__ == "__main__":
